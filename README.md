@@ -4,6 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This subordinate charm deploys [Thruk][thruk] alongside Nagios deployed with the [`nagios`][nagios-charm] charm.
+The charm installs Thruk from the [Consol Labs Repository][consol-labs] from [Consol][consol].
 
 ## Usage
 
@@ -37,5 +38,13 @@ help                 Show this help
 
 ### Links
 
+- [Thruk project][thruk]
+- [Thruk documentation][thruk-docs]
+- [Consol Labs repository][consol-labs]
+- [ConSol Consulting & Solutions Software GmbH][consol]
+
 [thruk]: https://www.thruk.org
+[thruk-docs]: https://www.thruk.org/documentation/
+[consol]: https://consol.de/
+[consol-labs]: https://labs.consol.de/
 [nagios-charm]: https://jaas.ai/nagios
