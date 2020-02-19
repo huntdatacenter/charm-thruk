@@ -13,6 +13,7 @@ Here is an example to get going:
 ```
 juju deploy cs:~huntdatacenter/thruk
 juju deploy nagios
+juju config nagios enable_livestatus=true
 juju add-relation nagios:juju-info thruk:juju-info
 ```
 
