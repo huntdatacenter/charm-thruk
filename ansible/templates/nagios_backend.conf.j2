@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+<Component Thruk::Backend>
+    <peer>
+        name    = Nagios
+        type    = livestatus
+        <options>
+            peer          = {{ livestatus_path }}
+            resource_file = {{ nagios_path }}/resource.cfg
+        </options>
+        <configtool>
+            core_type = nagios
+            core_conf = {{ nagios_path }}/nagios.cfg
+            obj_check_cmd = sudo -u root {{ nagios_bin }} -v {{ nagios_path }}/nagios.cfg
+            obj_reload_cmd = /etc/init.d/nagios3 reload
+        </configtool>
+    </peer>
+</Component>

@@ -1,0 +1,12 @@
+series: xenial
+applications:
+  thruk:
+    charm: /tmp/charm-builds/thruk
+  nagios:
+    charm: cs:nagios
+    num_units: 1
+    options:
+      enable_livestatus: true
+relations:
+- - nagios:juju-info
+  - thruk:juju-info

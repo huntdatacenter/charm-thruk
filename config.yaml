@@ -1,0 +1,16 @@
+options:
+  livestatus_path:
+    type: string
+    default: "/var/lib/nagios3/livestatus/socket"
+    description: |
+      Default path to Nagios livestatus socket.
+  server_timezone:
+    type: string
+    default: "CET"
+    description: |
+      Default time zone.
+  home_link:
+    type: string
+    default: "http://www.thruk.org"
+    description: |
+      Default home link.

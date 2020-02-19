@@ -1,0 +1,68 @@
+- hosts: localhost
+  vars:
+    thruk_path: /etc/thruk
+    nagios_path: /etc/nagios3
+    nagios_bin: /usr/sbin/nagios3
+    apache_user: www-data
+
+  tasks:
+    - name: Add Consol Labs GPG key
+      apt_key:
+        url: https://labs.consol.de/repo/stable/RPM-GPG-KEY
+
+    - name: Add Consol Labs repository
+      apt_repository:
+        repo: "deb http://labs.consol.de/repo/stable/ubuntu {{ ansible_distribution_release }} main"
+
+    - name: Remove Consol Labs repository
+      apt_repository:
+        repo: "deb http://labs.consol.de/repo/stable/ubuntu {{ ansible_distribution_release }} main"
+        state: absent
+      tags: never, uninstall
+
+    - name: Install Thruk
+      apt:
+        name: thruk
+        state: latest
+
+    - name: Uninstall Thruk
+      apt:
+        name: thruk
+        state: absent
+      tags: never, uninstall
+
+    - name: Get package facts
+      package_facts:
+        manager: auto
+
+    - name: Set Thruk application version
+      command: application-version-set "{{ ansible_facts.packages['thruk'][0]['version'] }}"
+
+    - name: Template default index.html
+      template:
+        src: templates/index.html
+        dest: "/var/www/html/index.html"
+
+    - name: Template Nagios backend
+      template:
+        src: templates/nagios_backend.conf.j2
+        dest: "{{ thruk_path }}/thruk_local.d/nagios_backend.conf"
+        owner: "{{ apache_user }}"
+        group: "{{ apache_user }}"
+      notify: restart thruk
+      tags: config
+
+    - name: Template Thruk local config
+      template:
+        src: templates/thruk_local.conf.j2
+        dest: "{{ thruk_path }}/thruk_local.conf"
+        owner: "{{ apache_user }}"
+        group: "{{ apache_user }}"
+      notify: restart thruk
+      tags: config
+
+  handlers:
+    - name: restart thruk
+      service:
+        name: thruk
+        state: restarted
