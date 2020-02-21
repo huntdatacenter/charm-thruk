@@ -1,16 +1,25 @@
 options:
-  livestatus_path:
-    type: string
-    default: "/var/lib/nagios3/livestatus/socket"
+  escape_html_tags:
+    type: int
+    default: 1
     description: |
-      Default path to Nagios livestatus socket.
-  server_timezone:
-    type: string
-    default: "CET"
-    description: |
-      Default time zone.
+      Determines whether html output from plugins is escaped or not.
   home_link:
     type: string
     default: "http://www.thruk.org"
     description: |
-      Default home link.
+      This link is used whenever you click on one of the main logos.
+      By default those logos are the Thruk logos and the link will take you to the Thruk homepage.
+      Replace this with where you want your home location to be.
+  livestatus_path:
+    type: string
+    default: "/var/lib/nagios3/livestatus/socket"
+    description: |
+      Path to Nagios livestatus socket.
+  server_timezone:
+    type: string
+    default: "CET"
+    description: |
+      Changes the timezone from the systems default to this timezone.
+      Only set this if you have trouble with displaying the right timestamps.
+      Use /usr/share/zoneinfo on most linux systems for reference, as some timezones are set using the Region/Country format.
