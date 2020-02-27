@@ -18,7 +18,7 @@ options:
       Path to Nagios livestatus socket.
   server_timezone:
     type: string
-    default: "CET"
+    default: "UTC"
     description: |
       Changes the timezone from the systems default to this timezone.
       Only set this if you have trouble with displaying the right timestamps.
