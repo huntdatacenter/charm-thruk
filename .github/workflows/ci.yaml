@@ -58,7 +58,7 @@ jobs:
           path: /tmp/charm-builds/thruk
       # Workarounds for https://github.com/actions/upload-artifact/issues/38
       - run: sudo apt install -y tree
-      - run: tree -puf /tmp/charm-builds/thru
+      - run: tree -puf /tmp/charm-builds/thruk
       - name: Set up LXD
         run: |
           sudo usermod --append --groups lxd $(whoami)
