@@ -56,6 +56,9 @@ jobs:
         with:
           name: charm
           path: /tmp/charm-builds/thruk
+      # Workarounds for https://github.com/actions/upload-artifact/issues/38
+      - run: chmod +x -R /tmp/charm-builds/thruk/bin
+      - run: chmod +x -R /tmp/charm-builds/thruk/hooks
       - name: Set up LXD
         run: |
           sudo usermod --append --groups lxd $(whoami)
@@ -71,5 +74,5 @@ jobs:
       - name: Run tests
         run: make test-${{ matrix.test_bundles }}
       - name: Display juju debug log on failure
-        run: juju debug-log
+        run: juju debug-log --replay
         if: failure()
