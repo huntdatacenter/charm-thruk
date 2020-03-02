@@ -27,8 +27,6 @@ jobs:
       - run: pip install tox
       - name: Build charm
         run: make build
-      - run: sudo apt install -y tree
-      - run: tree -puf /tmp/charm-builds/thruk
       - name: Upload charm artifact
         uses: actions/upload-artifact@v1
         with:
@@ -59,11 +57,8 @@ jobs:
           name: charm
           path: /tmp/charm-builds/thruk
       # Workarounds for https://github.com/actions/upload-artifact/issues/38
-      - run: sudo apt install -y tree
-      - run: tree -puf /tmp/charm-builds/thruk
       - run: chmod +x -R /tmp/charm-builds/thruk/bin
       - run: chmod +x -R /tmp/charm-builds/thruk/hooks
-      - run: tree -puf /tmp/charm-builds/thruk
       - name: Set up LXD
         run: |
           sudo usermod --append --groups lxd $(whoami)
