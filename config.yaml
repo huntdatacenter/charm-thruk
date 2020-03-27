@@ -28,5 +28,5 @@ options:
     default: 0
     description: |
       Set whether you want to use a framed navigation or not.
-      With using frames it’s sometimes easier to include addons.
+      With using frames it's sometimes easier to include addons.
       See allowed_frame_links option for how to integrate addons.
