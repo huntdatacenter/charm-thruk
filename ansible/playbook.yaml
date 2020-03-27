@@ -1,8 +1,10 @@
 - hosts: localhost
   vars:
     thruk_path: /etc/thruk
+    thruk_share_dir: /usr/share/thruk
     nagios_path: /etc/nagios3
-    nagios_bin: /usr/sbin/nagios3
+    nagios_bin: /usr/share/nagios
+    nagios_share_dir: /usr/share/nagios
     apache_user: www-data
 
   tasks:
@@ -38,6 +40,12 @@
     - name: Set Thruk application version
       command: application-version-set "{{ ansible_facts.packages['thruk'][0]['version'] }}"
 
+    - name: Symlink logos from Nagios
+      file:
+        src: "{{ nagios_share_dir }}/htdocs/images/logos/base"
+        dest: "{{ thruk_share_dir }}/themes/themes-available/Thruk2/images/logos/base"
+        state: link
+
     - name: Template default index.html
       template:
         src: templates/index.html
@@ -52,10 +60,10 @@
       notify: restart thruk
       tags: config
 
-    - name: Template Thruk local config
+    - name: Template charm config
       template:
-        src: templates/thruk_local.conf.j2
-        dest: "{{ thruk_path }}/thruk_local.conf"
+        src: templates/charm_config.conf.j2
+        dest: "{{ thruk_path }}/thruk_local.d/charm_config.conf"
         owner: "{{ apache_user }}"
         group: "{{ apache_user }}"
       notify: restart thruk
